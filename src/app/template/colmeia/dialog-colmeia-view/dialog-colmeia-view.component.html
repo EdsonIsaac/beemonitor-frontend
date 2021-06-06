@@ -1,0 +1,59 @@
+<div class="mat-dialog">
+    <h1 mat-dialog-title>Colmeia: {{data.colmeia.codigo}}</h1>
+
+    <div mat-dialog-content>
+        
+        <div class="row" *ngIf="dataSource && dataSource.data.length > 0">
+            <div class="col">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput #searchText (keyup)="filterTable(searchText.value)" placeholder="Data/Hora da medição">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="table-responsive" [hidden]="!dataSource || dataSource.data.length == 0">
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="data-hora-cadastro" matSortDirection="asc" class="w-100">
+                
+                <ng-container matColumnDef="indice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-indice">#</th>
+                    <td mat-cell *matCellDef="let medicao; let i = index" class="text-center pe-3">{{i+1}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="data-hora-cadastro">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-data-cadastro">Data / Hora</th>
+                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.dataHoraCadastro}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="temperatura">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-temperatura pe-2">Temperatura (°C)</th>
+                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.temperatura}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="umidade">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-umidade pe-2">Umidade (%)</th>
+                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.umidade}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="peso">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-peso pe-2">Peso (Kg)</th>
+                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.peso}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[96]" showFirstLastButtons></mat-paginator>
+        </div>
+
+        <div *ngIf="dataSource && dataSource.data.length == 0">
+            <h1 class="mb-0 text-center">Nenhuma medição foi encontrada!</h1>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions layout="row" class="d-flex justify-content-end">
+        <button mat-button mat-dialog-close class="btn-success">OK</button>
+    </div>
+</div>

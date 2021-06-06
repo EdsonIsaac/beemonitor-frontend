@@ -1,0 +1,38 @@
+#sidebar {
+    background-color: #2F323A;
+}
+
+.vertical-nav {
+    min-width: 24rem;
+    width: 24rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.4s;
+}
+
+#sidebar.active {
+    margin-left: -18.75rem;
+}
+
+#sidebar.active .nav-item a {
+    margin-left: 19rem;
+    padding-right: 0;
+    transition: 0.5s;
+}
+
+#sidebar.active .nav-item a span {
+    display: none;
+}
+
+.nav-item:hover {
+    background-color: #1E2025;
+    transition: 0.5s;
+}
+
+@media (max-width:768px) {
+    #sidebar {
+        display: none;
+    }
+}
