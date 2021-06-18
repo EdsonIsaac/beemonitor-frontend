@@ -25,18 +25,19 @@ export class DialogColmeiaFormComponent implements OnInit {
   ngOnInit(): void {
     
     if (this.data.colmeia) {
-      this.buildForm(this.data.colmeia.id, this.data.colmeia.codigo, this.data.colmeia.dataCadastro);
+      this.buildForm(this.data.colmeia.id, this.data.colmeia.codigo, this.data.colmeia.telefone, this.data.colmeia.dataCadastro);
     }
 
     else {
-      this.buildForm(null, null, new Date().toLocaleDateString());
+      this.buildForm(null, null, null, new Date().toLocaleDateString());
     }
   }
 
-  buildForm(id: any, codigo: any, dataCadastro: any) {
+  buildForm(id: any, codigo: any, telefone: any, dataCadastro: any) {
     this.form = this.formBuilder.group({
       id: [id, Validators.nullValidator],
       codigo: [codigo, Validators.required],
+      telefone: [telefone, Validators.required],
       dataCadastro: [dataCadastro, Validators.nullValidator]
     });
   }
@@ -46,6 +47,7 @@ export class DialogColmeiaFormComponent implements OnInit {
 
     colmeia.id = values.id;
     colmeia.codigo = values.codigo;
+    colmeia.telefone = values.telefone;
 
     return colmeia;
   }

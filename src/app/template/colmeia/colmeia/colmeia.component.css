@@ -4,8 +4,13 @@
 }
 
 .mat-column-codigo {
-    flex: 0 0 50% !important;
-    width: 50% !important;
+    flex: 0 0 25% !important;
+    width: 25% !important;
+}
+
+.mat-column-telefone {
+    flex: 0 0 25% !important;
+    width: 25% !important;
 }
 
 .mat-column-data-cadastro {
@@ -18,7 +23,8 @@
     width: 20% !important;
 }
 
-::ng-deep .col-indice .mat-sort-header-container, ::ng-deep .col-data-cadastro .mat-sort-header-container, ::ng-deep .col-acao .mat-sort-header-container {
+::ng-deep .col-indice .mat-sort-header-container, ::ng-deep .col-telefone .mat-sort-header-container, 
+::ng-deep .col-data-cadastro .mat-sort-header-container, ::ng-deep .col-acao .mat-sort-header-container {
     display: flex;
     justify-content: center;
 }

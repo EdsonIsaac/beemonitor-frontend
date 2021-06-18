@@ -18,7 +18,7 @@ import { DialogColmeiaViewComponent } from '../dialog-colmeia-view/dialog-colmei
 export class ColmeiaComponent implements OnInit {
 
   dataSource!: MatTableDataSource<Colmeia>;
-  colunas: string[] = ['indice', 'codigo', 'data-cadastro', 'acao'];
+  colunas: string[] = ['indice', 'codigo', 'telefone', 'data-cadastro', 'acao'];
   searchText!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -51,7 +51,7 @@ export class ColmeiaComponent implements OnInit {
       data: {
         colmeia: null
       },
-      width: '50%'
+      width: '100%'
     })
     .afterClosed().subscribe(result => {
       
@@ -112,7 +112,7 @@ export class ColmeiaComponent implements OnInit {
       data: {
         colmeia: colmeia
       },
-      width: '50%'
+      width: '100%'
     })
     .afterClosed().subscribe(result => {
       

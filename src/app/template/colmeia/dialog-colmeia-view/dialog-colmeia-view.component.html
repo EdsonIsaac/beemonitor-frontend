@@ -13,7 +13,7 @@
         </div>
 
         <div class="table-responsive" [hidden]="!dataSource || dataSource.data.length == 0">
-            <table mat-table [dataSource]="dataSource" matSort matSortActive="data-hora-cadastro" matSortDirection="asc" class="w-100">
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="data-hora-cadastro" matSortDirection="desc" class="w-100">
                 
                 <ng-container matColumnDef="indice">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-indice">#</th>
