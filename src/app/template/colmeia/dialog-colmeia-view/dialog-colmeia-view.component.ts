@@ -14,10 +14,19 @@ import { ColmeiaService } from 'src/app/service/colmeia.service';
 export class DialogColmeiaViewComponent implements OnInit {
 
   dataSource!: MatTableDataSource<Medicao>;
+  paginator!: MatPaginator;
+  sort!: MatSort;
   colunas: string[] = ['indice', 'data-hora-cadastro', 'temperatura', 'umidade', 'peso'];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private colmeiaService: ColmeiaService) { }
 
@@ -34,12 +43,17 @@ export class DialogColmeiaViewComponent implements OnInit {
       };
 
       this.dataSource.filterPredicate = (data: Medicao, filter: string) => !filter || data.dataHoraCadastro.includes(filter);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
   }
 
   filterTable(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  setDataSourceAttributes() {
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 }

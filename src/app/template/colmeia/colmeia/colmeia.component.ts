@@ -18,11 +18,20 @@ import { DialogColmeiaViewComponent } from '../dialog-colmeia-view/dialog-colmei
 export class ColmeiaComponent implements OnInit {
 
   dataSource!: MatTableDataSource<Colmeia>;
+  paginator!: MatPaginator;
+  sort!: MatSort;
   colunas: string[] = ['indice', 'codigo', 'telefone', 'data-cadastro', 'acao'];
   searchText!: string;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
 
   constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
@@ -38,8 +47,6 @@ export class ColmeiaComponent implements OnInit {
       };
 
       this.dataSource.filterPredicate = (data: Colmeia, filter: string) => !filter || data.codigo.includes(filter);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     },
     error => {
       this.showSnackBar('Erro! Não foi possível listar as colmeias!', 'bg-danger');
@@ -87,6 +94,13 @@ export class ColmeiaComponent implements OnInit {
 
   filterTable(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  setDataSourceAttributes() {
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   showColmeia(colmeia: Colmeia) {

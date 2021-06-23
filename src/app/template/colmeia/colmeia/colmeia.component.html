@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" [hidden]="!dataSource">
         <table mat-table [dataSource]="dataSource" matSort matSortActive="codigo" matSortDirection="asc" class="w-100">
             <ng-container matColumnDef="indice">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-indice">#</th>
@@ -73,6 +73,15 @@
             <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator *ngIf="dataSource && dataSource.data.length <= 50" [pageSizeOptions]="[50]" showFirstLastButtons></mat-paginator>
+        <mat-paginator *ngIf="dataSource && dataSource.data.length > 50" [pageSizeOptions]="[50, dataSource.data.length]" showFirstLastButtons></mat-paginator>
+    </div>
+
+    <div *ngIf="dataSource && dataSource.data.length == 0">
+        <mat-card>
+            <mat-card-content>
+                <h1 class="mb-0 text-center">Nenhuma colmeia foi encontrada!</h1>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
