@@ -1,3 +1,8 @@
+.mat-card-header-text {
+    width: 100%;
+    margin-left: -1.75vh;
+}
+
 .mat-column-indice {
     flex: 0 0 5% !important;
     width: 5% !important;

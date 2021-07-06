@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -12,6 +13,7 @@ import { ColmeiaService } from 'src/app/service/colmeia.service';
 export class DialogColmeiaFormComponent implements OnInit {
 
   form!: FormGroup;
+  now!: Date;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -19,7 +21,7 @@ export class DialogColmeiaFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private matDialogRef: MatDialogRef<DialogColmeiaFormComponent>) {
 
-    
+    this.now = new Date();
   }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class DialogColmeiaFormComponent implements OnInit {
     }
 
     else {
-      this.buildForm(null, null, null, new Date().toLocaleDateString());
+      this.buildForm(null, null, null, this.now);
     }
   }
 
@@ -38,7 +40,7 @@ export class DialogColmeiaFormComponent implements OnInit {
       id: [id, Validators.nullValidator],
       codigo: [codigo, Validators.required],
       telefone: [telefone, Validators.required],
-      dataCadastro: [dataCadastro, Validators.nullValidator]
+      dataCadastro: [formatDate(dataCadastro, 'dd/MM/yyyy', 'en-US'), Validators.nullValidator]
     });
   }
 

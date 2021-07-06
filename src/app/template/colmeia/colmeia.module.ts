@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ColmeiaComponent } from './colmeia/colmeia.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { OutrosModule } from '../outros/outros.module';
@@ -16,6 +16,7 @@ import { DialogColmeiaDeleteComponent } from './dialog-colmeia-delete/dialog-col
 import { DialogColmeiaViewComponent } from './dialog-colmeia-view/dialog-colmeia-view.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -29,15 +30,17 @@ import { MatIconModule } from '@angular/material/icon';
     OutrosModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatPaginatorModule,
+    MatNativeDateModule,
     MatSortModule,
     MatTableModule,
     FormsModule,
     ReactiveFormsModule
-  ]
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }]
 })
 export class ColmeiaModule { }

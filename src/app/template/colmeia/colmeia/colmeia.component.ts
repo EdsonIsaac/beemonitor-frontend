@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,20 +17,10 @@ import { DialogColmeiaViewComponent } from '../dialog-colmeia-view/dialog-colmei
 export class ColmeiaComponent implements OnInit {
 
   dataSource!: MatTableDataSource<Colmeia>;
-  paginator!: MatPaginator;
-  sort!: MatSort;
   colunas: string[] = ['indice', 'codigo', 'telefone', 'data-cadastro', 'acao'];
   searchText!: string;
 
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
-    this.sort = ms;
-    this.setDataSourceAttributes();
-  }
-
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
@@ -41,12 +30,13 @@ export class ColmeiaComponent implements OnInit {
 
       this.dataSource.sortingDataAccessor = (item: any, property: any) => {
         switch(property) {
-          case 'data-cadastro': return new Date(item.dataCadastro.split('/')[2], item.dataCadastro.split('/')[1] - 1, item.dataCadastro.split('/')[0]);
+          case 'data-cadastro': return new Date(item.dataCadastro);
           default: return item[property];
         }
       };
 
-      this.dataSource.filterPredicate = (data: Colmeia, filter: string) => !filter || data.codigo.includes(filter);
+      this.dataSource.filterPredicate = (data: Colmeia, filter: string) => !filter || data.codigo.toLowerCase().includes(filter);
+      this.dataSource.sort = this.sort;
     },
     error => {
       this.showSnackBar('Erro! Não foi possível listar as colmeias!', 'bg-danger');
@@ -63,7 +53,7 @@ export class ColmeiaComponent implements OnInit {
     .afterClosed().subscribe(result => {
       
       if (result.status != undefined && result.status) {
-        this.showSnackBar('Colmeia salva com sucesso!', 'bg-success');
+        this.showSnackBar('Colmeia cadastrada com sucesso!', 'bg-success');
         this.ngOnInit();
       }
       
@@ -94,13 +84,6 @@ export class ColmeiaComponent implements OnInit {
 
   filterTable(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
-  }
-
-  setDataSourceAttributes() {
-    if (this.dataSource) {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
   }
 
   showColmeia(colmeia: Colmeia) {

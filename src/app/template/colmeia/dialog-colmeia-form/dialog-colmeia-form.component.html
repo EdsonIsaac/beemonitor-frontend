@@ -1,6 +1,6 @@
 <div class="mat-dialog">
-    <h1 mat-dialog-title *ngIf="!this.data.colmeia">Cadastrar Colmeia</h1>
-    <h1 mat-dialog-title *ngIf="this.data.colmeia">Editar Colmeia</h1>
+    <h1 mat-dialog-title class="fw-bold" *ngIf="!this.data.colmeia">Cadastrar Colmeia</h1>
+    <h1 mat-dialog-title class="fw-bold" *ngIf="this.data.colmeia">Editar Colmeia</h1>
 
     <div mat-dialog-content>
         <form [formGroup]="form" *ngIf="form">

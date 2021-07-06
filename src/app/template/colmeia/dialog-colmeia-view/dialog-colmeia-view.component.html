@@ -1,19 +1,21 @@
 <div class="mat-dialog">
-    <h1 mat-dialog-title>Colmeia: {{data.colmeia.codigo}}</h1>
+    <h1 mat-dialog-title class="fw-bold">Colmeia: {{data.colmeia.codigo}}</h1>
 
     <div mat-dialog-content>
-        
         <div class="row" *ngIf="dataSource && dataSource.data.length > 0">
             <div class="col">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline">
                     <mat-label>Buscar</mat-label>
-                    <input matInput #searchText (keyup)="filterTable(searchText.value)" placeholder="Data/Hora da medição">
+                    <!--<input id="searchText" matInput #searchText (keyup)="filterTable(searchText.value)" placeholder="Data/Hora da medição">-->
+                    <input matInput [matDatepicker]="picker" #searchText (dateChange)="filterTable(searchText.value)" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
         </div>
 
         <div class="table-responsive" [hidden]="!dataSource || dataSource.data.length == 0">
-            <table mat-table [dataSource]="dataSource" matSort matSortActive="data-hora-cadastro" matSortDirection="desc" class="w-100">
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="data-hora-cadastro" matSortDirection="desc" class="w-100 border">
                 
                 <ng-container matColumnDef="indice">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-indice">#</th>
@@ -22,7 +24,7 @@
                 
                 <ng-container matColumnDef="data-hora-cadastro">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-data-cadastro">Data / Hora</th>
-                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.dataHoraCadastro}}</td>
+                    <td mat-cell *matCellDef="let medicao" class="text-center pe-3">{{medicao.dataHoraCadastro | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="temperatura">
@@ -43,9 +45,6 @@
                 <tr mat-header-row *matHeaderRowDef="colunas"></tr>
                 <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
             </table>
-
-            <mat-paginator *ngIf="dataSource && dataSource.data.length <= 96" [pageSizeOptions]="[96]" showFirstLastButtons></mat-paginator>
-            <mat-paginator *ngIf="dataSource && dataSource.data.length > 96" [pageSizeOptions]="[96, dataSource.data.length]" showFirstLastButtons></mat-paginator>
         </div>
 
         <div *ngIf="dataSource && dataSource.data.length == 0">
