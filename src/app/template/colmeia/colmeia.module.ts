@@ -13,21 +13,23 @@ import { MatInputModule } from '@angular/material/input';
 import { DialogColmeiaFormComponent } from './dialog-colmeia-form/dialog-colmeia-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogColmeiaDeleteComponent } from './dialog-colmeia-delete/dialog-colmeia-delete.component';
-import { DialogColmeiaViewComponent } from './dialog-colmeia-view/dialog-colmeia-view.component';
+import { ColmeiaViewComponent } from './colmeia-view/colmeia-view.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     ColmeiaComponent,
+    ColmeiaViewComponent,
     DialogColmeiaFormComponent,
-    DialogColmeiaDeleteComponent,
-    DialogColmeiaViewComponent
+    DialogColmeiaDeleteComponent
   ],
   imports: [
     CommonModule,
     OutrosModule,
+    ChartsModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,

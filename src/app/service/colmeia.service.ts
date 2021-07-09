@@ -11,16 +11,16 @@ export class ColmeiaService {
 
   constructor(private http: HttpClient) { }
 
-  delete (colmeia: Colmeia): Observable<Colmeia> {
-    return this.http.delete<Colmeia>(environment.serverURL + '/colmeias/' + colmeia.id);
+  delete (id: number): Observable<Colmeia> {
+    return this.http.delete<Colmeia>(environment.serverURL + '/colmeias/' + id);
   }
 
   findAll (): Observable<Array<Colmeia>> {
     return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias');
   }
 
-  findById (colmeia: Colmeia): Observable<Colmeia> {
-    return this.http.get<Colmeia>(environment.serverURL + '/colmeias/' + colmeia.id);
+  findById (id: number): Observable<Colmeia> {
+    return this.http.get<Colmeia>(environment.serverURL + '/colmeias/' + id);
   }
   
   save (colmeia: Colmeia): Observable<Colmeia> {

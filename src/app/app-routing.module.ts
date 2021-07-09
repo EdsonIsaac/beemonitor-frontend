@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
+import { ColmeiaViewComponent } from './template/colmeia/colmeia-view/colmeia-view.component';
 import { ColmeiaComponent } from './template/colmeia/colmeia/colmeia.component';
 import { InicioComponent } from './template/geral/inicio/inicio.component';
 import { LoginComponent } from './template/geral/login/login.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: '', component: LayoutComponent, children: [
     {path: 'inicio', component: InicioComponent, canActivate: [AuthGuard]},
     {path: 'colmeias', component: ColmeiaComponent, canActivate: [AuthGuard]},
+    {path: 'colmeias/:id', component: ColmeiaViewComponent, canActivate: [AuthGuard]},
     {path: '**', component: NotFoundComponent}
   ]}
 ];

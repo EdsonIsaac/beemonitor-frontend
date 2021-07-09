@@ -7,7 +7,7 @@ import { Colmeia } from 'src/app/model/colmeia.model';
 import { ColmeiaService } from 'src/app/service/colmeia.service';
 import { DialogColmeiaFormComponent } from '../dialog-colmeia-form/dialog-colmeia-form.component';
 import { DialogColmeiaDeleteComponent } from '../dialog-colmeia-delete/dialog-colmeia-delete.component';
-import { DialogColmeiaViewComponent } from '../dialog-colmeia-view/dialog-colmeia-view.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-colmeia',
@@ -22,7 +22,7 @@ export class ColmeiaComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.colmeiaService.findAll().subscribe(response => {
@@ -87,13 +87,7 @@ export class ColmeiaComponent implements OnInit {
   }
 
   showColmeia(colmeia: Colmeia) {
-
-    this.dialog.open(DialogColmeiaViewComponent, {
-      data: {
-        colmeia: colmeia
-      },
-      width: '100%'
-    })
+    this.router.navigate(['/colmeias/' + colmeia.id]);
   }
 
   showSnackBar(mensagem: string, cor: string) {
