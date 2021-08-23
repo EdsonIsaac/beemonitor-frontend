@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverURL: 'http://localhost:8081'
+  serverURL: 'https://monitoramento-colmeia-backend.herokuapp.com'
 };
 
 /*
