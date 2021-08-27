@@ -11,11 +11,11 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  exibirSenha!: boolean;
+  hide!: boolean;
   form!: FormGroup;
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
-    this.exibirSenha = true;
+    this.hide = true;
   }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submitForm() {
+  submit() {
     const usuario = Object.assign({}, this.form.value);
 
     this.authService.login(usuario).subscribe(response => {
