@@ -40,7 +40,7 @@ export class LayoutComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     
-    this.title.setTitle('Cooperativa');
+    this.title.setTitle('BeeMonitor');
     
     $(() => {
       $('#sidebarCollapse').on('click', () => {

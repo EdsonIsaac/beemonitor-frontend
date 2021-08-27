@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -14,12 +15,13 @@ export class LoginComponent implements OnInit {
   hide!: boolean;
   form!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar, private title: Title) {
     this.hide = true;
   }
 
   ngOnInit(): void {
     this.buildForm();
+    this.title.setTitle("BeeMonitor - Login");
   }
 
   buildForm() {
