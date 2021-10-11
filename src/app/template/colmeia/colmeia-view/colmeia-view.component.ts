@@ -7,6 +7,7 @@ import { Color, Label } from 'ng2-charts';
 import { Colmeia } from 'src/app/model/colmeia.model';
 import { Medicao } from 'src/app/model/medicao.model';
 import { ColmeiaService } from 'src/app/service/colmeia.service';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-colmeia-view',
@@ -48,6 +49,7 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
   lineChartPluginsPeso = [];
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('searchDate', { read: MatInput }) inputSearchDate!: MatInput;
 
   constructor(private colmeiaService: ColmeiaService, private activatedRoute: ActivatedRoute) { 
     this.now = new Date();
@@ -64,12 +66,17 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  cleanFilter () {
+    this.inputSearchDate.value = '';
+    this.filterTable('');
+  }
+
   buildGraph (filter: string) {
     let data = this.dataSource.data;
 
     data = data.filter(x => new Date(x.dataHoraCadastro).toLocaleDateString().includes(filter));
     
-    if (data.length > 0) {
+    if (data.length > 0 && filter !== '') {
       data.sort((a, b) => {return new Date(a.dataHoraCadastro).getTime() - new Date(b.dataHoraCadastro).getTime();});
 
       this.lineChartDataTemperatura = [{data: data.map(x => x.temperatura), label: 'Temperatura'}];
