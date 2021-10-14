@@ -3,5 +3,5 @@ export class Medicao {
     temperatura!: number;
     umidade!: number;
     peso!: number;
-    dataHoraCadastro!: string;
+    dataHoraCadastro!: Date;
 }

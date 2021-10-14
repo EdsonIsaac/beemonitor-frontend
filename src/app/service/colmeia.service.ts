@@ -19,6 +19,10 @@ export class ColmeiaService {
     return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias');
   }
 
+  findAllWithOneMedicao(): Observable<Array<Colmeia>> {
+    return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias?oneMedicao=true');
+  }
+
   findById (id: number): Observable<Colmeia> {
     return this.http.get<Colmeia>(environment.serverURL + '/colmeias/' + id);
   }

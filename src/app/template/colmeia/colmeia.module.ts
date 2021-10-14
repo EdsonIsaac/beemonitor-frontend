@@ -5,6 +5,8 @@ import { ColmeiaComponent } from './colmeia/colmeia.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { OutrosModule } from '../outros/outros.module';
@@ -18,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ChartsModule } from 'ng2-charts';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,14 +32,17 @@ import { ChartsModule } from 'ng2-charts';
   imports: [
     CommonModule,
     OutrosModule,
+    RouterModule,
     ChartsModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatNativeDateModule,
     MatSortModule,
     MatTableModule,

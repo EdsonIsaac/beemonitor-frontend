@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     const usuario = Object.assign({}, this.form.value);
 
     this.authService.login(usuario).subscribe(response => {
-      this.router.navigate(['/inicio']);
+      this.router.navigate(['/colmeias']);
     },
     error => {
       this.showSnackBar(error.error.message, 'bg-danger');

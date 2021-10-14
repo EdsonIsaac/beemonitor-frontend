@@ -4,7 +4,7 @@ export class Colmeia {
     id!: number;
     codigo!: string;
     telefone!: string;
-    dataCadastro!: string;
+    dataCadastro!: Date;
     medicoes!: Array<Medicao>;
 
     constructor() {

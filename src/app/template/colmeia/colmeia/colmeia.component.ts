@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Colmeia } from 'src/app/model/colmeia.model';
 import { ColmeiaService } from 'src/app/service/colmeia.service';
@@ -16,27 +15,18 @@ import { Router } from '@angular/router';
 })
 export class ColmeiaComponent implements OnInit {
 
+  colmeiasAll!: Array<Colmeia>;
+  colmeias!: Array<Colmeia>;
   dataSource!: MatTableDataSource<Colmeia>;
   colunas: string[] = ['indice', 'codigo', 'telefone', 'data-cadastro', 'acao'];
   searchText!: string;
 
-  @ViewChild(MatSort) sort!: MatSort;
-
   constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
-    this.colmeiaService.findAll().subscribe(response => {
-      this.dataSource = new MatTableDataSource(response);
-
-      this.dataSource.sortingDataAccessor = (item: any, property: any) => {
-        switch(property) {
-          case 'data-cadastro': return new Date(item.dataCadastro);
-          default: return item[property];
-        }
-      };
-
-      this.dataSource.filterPredicate = (data: Colmeia, filter: string) => !filter || data.codigo.toLowerCase().includes(filter);
-      this.dataSource.sort = this.sort;
+    this.colmeiaService.findAllWithOneMedicao().subscribe(colmeias => {
+      this.colmeiasAll = colmeias;
+      this.buildCards(this.colmeiasAll);
     },
     error => {
       this.showSnackBar('Erro! Não foi possível listar as colmeias!', 'bg-danger');
@@ -63,6 +53,12 @@ export class ColmeiaComponent implements OnInit {
     });
   }
 
+  buildCards(colmeias: Array<Colmeia>) {
+    this.colmeias = colmeias;
+    this.colmeias.sort((one, two) => (one > two ? -1 : 1));
+    this.colmeias.forEach(colmeia => colmeia.medicoes.sort((a, b) => (new Date(a.dataHoraCadastro).getTime() - new Date(b.dataHoraCadastro).getTime()) * -1));
+  }
+
   deleteColmeia(colmeia: Colmeia) {
     this.dialog.open(DialogColmeiaDeleteComponent, {
       data: {
@@ -82,8 +78,8 @@ export class ColmeiaComponent implements OnInit {
     });
   }
 
-  filterTable(value: string) {
-    this.dataSource.filter = value.trim().toLowerCase();
+  filter(value: string) {
+    this.buildCards(this.colmeiasAll.filter(colmeia => colmeia.codigo.includes(value)));
   }
 
   showColmeia(colmeia: Colmeia) {

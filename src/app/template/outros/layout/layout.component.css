@@ -9,8 +9,8 @@ body {
 }
 
 #page-content {
-    width: calc(100% - 24rem);
-    margin-left: 24rem;
+    width: calc(100% - 18rem);
+    margin-left: 18rem;
     transition: all 0.4s;
 }
 

@@ -6,34 +6,20 @@
                     <h1 class="m-0 text-white">BeeMonitor</h1>
                 </div>
             </div>
-
-            <div class="col-3">
-                <div class="text-end pe-2">
-                    <button id="sidebarCollapse" type="button" class="btn text-white rounded">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
     <ul class="nav flex-column mb-0">
-        <li class="nav-item">
-            <a class="nav-link text-muted d-flex align-items-center" routerLink="/inicio" title="Página Inicial">
-                <i class="ps-2 pe-3 py-3 fas fa-home fa-lg"></i><span>Página Inicial</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link text-muted d-flex align-items-center" routerLink="/colmeias" title="Colmeias">
-                <i class="ps-2 pe-3 py-3 fas fa-cubes fa-lg"></i><span>Colmeias</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
+        <li class="nav-item nav-item-exit w-100">
             <a class="nav-link text-danger d-flex align-items-center" routerLink="/sair" title="Sair" (click)="sair()">
                 <i class="ps-2 pe-4 py-3 fas fa-sign-out-alt fa-lg"></i><span>Sair</span>
             </a>
+
+            <div class="text-center ps-2 pe-4 py-3">
+                <span class="text-white m-0">
+                    &copy; ProMel - 2021
+                </span>
+            </div>
         </li>
     </ul>
 </div>
