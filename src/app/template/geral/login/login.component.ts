@@ -20,6 +20,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/colmeias']);
+    }
+
     this.buildForm();
     this.title.setTitle("BeeMonitor - Login");
   }
