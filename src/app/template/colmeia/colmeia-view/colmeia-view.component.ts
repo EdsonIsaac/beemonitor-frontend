@@ -57,13 +57,11 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.findData();
-    this.id = setInterval(() => this.findData(), 60000);
+    this.id = setInterval(() => this.findData(), 30000);
   }
   
   ngOnDestroy(): void {
-    if (this.id) {
-      clearInterval(this.id);
-    }
+    if (this.id) clearInterval(this.id);
   }
 
   cleanFilter () {

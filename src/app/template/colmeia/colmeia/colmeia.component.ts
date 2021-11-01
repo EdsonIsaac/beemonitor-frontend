@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
   templateUrl: './colmeia.component.html',
   styleUrls: ['./colmeia.component.css']
 })
-export class ColmeiaComponent implements OnInit {
+export class ColmeiaComponent implements OnInit, OnDestroy {
 
+  id!: any;
   colmeiasAll!: Array<Colmeia>;
   colmeias!: Array<Colmeia>;
   dataSource!: MatTableDataSource<Colmeia>;
@@ -24,13 +25,12 @@ export class ColmeiaComponent implements OnInit {
   constructor(private colmeiaService: ColmeiaService, private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
-    this.colmeiaService.findAllWithOneMedicao().subscribe(colmeias => {
-      this.colmeiasAll = colmeias;
-      this.buildCards(this.colmeiasAll);
-    },
-    error => {
-      this.showSnackBar('Erro! Não foi possível listar as colmeias!', 'bg-danger');
-    });
+    this.findData();
+    this.id = setInterval(() => this.findData(), 30000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.id) clearInterval(this.id);
   }
 
   addColmeia() {
@@ -80,6 +80,14 @@ export class ColmeiaComponent implements OnInit {
 
   filter(value: string) {
     this.buildCards(this.colmeiasAll.filter(colmeia => colmeia.codigo.includes(value)));
+  }
+
+  findData() {
+    this.colmeiaService.findAllWithOneMedicao().subscribe(colmeias => {
+      this.colmeiasAll = colmeias;
+      this.buildCards(this.colmeiasAll);
+    }, 
+    error => this.showSnackBar('Erro! Não foi possível listar as colmeias!', 'bg-danger'));
   }
 
   showColmeia(colmeia: Colmeia) {
