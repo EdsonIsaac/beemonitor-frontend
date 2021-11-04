@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { OutrosModule } from '../outros/outros.module';
@@ -44,6 +45,7 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatMenuModule,
     MatNativeDateModule,
+    MatPaginatorModule,
     MatSortModule,
     MatTableModule,
     FormsModule,

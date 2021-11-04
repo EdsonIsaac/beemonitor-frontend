@@ -8,6 +8,7 @@ import { Colmeia } from 'src/app/model/colmeia.model';
 import { Medicao } from 'src/app/model/medicao.model';
 import { ColmeiaService } from 'src/app/service/colmeia.service';
 import { MatInput } from '@angular/material/input';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-colmeia-view',
@@ -49,6 +50,7 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
   lineChartPluginsPeso = [];
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('searchDate', { read: MatInput }) inputSearchDate!: MatInput;
 
   constructor(private colmeiaService: ColmeiaService, private activatedRoute: ActivatedRoute) { 
@@ -113,6 +115,7 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
           };
 
           this.dataSource.filterPredicate = (data: Medicao, filter: string) => new Date(data.dataHoraCadastro).toLocaleDateString().includes(filter);
+          this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           
           if (this.searchDate) {

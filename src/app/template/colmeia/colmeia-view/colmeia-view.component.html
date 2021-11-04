@@ -55,6 +55,8 @@
                     <tr mat-header-row *matHeaderRowDef="colunas"></tr>
                     <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
                 </table>
+
+                <mat-paginator [pageSizeOptions]="[25, 50, 75, 100]" showFirstLastButtons></mat-paginator>
             </div>
 
             <div *ngIf="dataSource && dataSource.data.length == 0">
