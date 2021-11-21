@@ -39,7 +39,7 @@
 
     <div class="row" *ngIf="colmeias && colmeiasAll.length > 0">
         <div class="col-12 col-md-4 mb-3" *ngFor="let colmeia of colmeias">
-            <mat-card>
+            <mat-card *ngIf="colmeia.medicoes.length == 0">
                 <mat-card-header>
                     <div class="mat-card-header-text">
                         <div class="row">
@@ -81,21 +81,200 @@
                             <div class="col">
                                 <div class="text-center">
                                     <img src="https://img.icons8.com/fluency/48/000000/temperature.png"/>
-                                    <span class="fw-bold">{{colmeia.medicoes[0]?.temperatura}} °C</span>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="text-center">
                                     <img src="https://img.icons8.com/fluency/48/000000/hygrometer.png"/>
-                                    <span class="fw-bold">{{colmeia.medicoes[0]?.umidade}} %</span>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="text-center">
                                     <img src="https://img.icons8.com/fluency/48/000000/scale.png"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold">{{colmeia.medicoes[0]?.temperatura}} °C</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold">{{colmeia.medicoes[0]?.umidade}} %</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
                                     <span class="fw-bold">{{colmeia.medicoes[0]?.peso}} Kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-footer>
+                </a>
+            </mat-card>
+
+            <mat-card *ngIf="(colmeia.medicoes.length > 0) && ((colmeia.medicoes[0].temperatura >= 33 && colmeia.medicoes[0].temperatura <= 36) || (colmeia.medicoes[0].umidade >= 40 && colmeia.medicoes[0].umidade <= 60))">
+                <mat-card-header>
+                    <div class="mat-card-header-text">
+                        <div class="row">
+                            <div class="col">
+                                <h2 class="mb-0 fw-bold">{{colmeia.codigo}}</h2>
+                            </div>
+
+                            <div class="col p-0">
+                                <div class="text-end">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="updateColmeia(colmeia)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Editar</span>
+                                        </button>
+                                        <button mat-menu-item (click)="deleteColmeia(colmeia)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>Excluir</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-header>
+                <a [routerLink]="'/colmeias/' + colmeia.id" class="text-dark">
+                    <mat-card-content>
+                        <div class="text-center py-3">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2826/2826286.png" width="144" height="144"/>
+                        </div>
+                    </mat-card-content>
+                    
+                    <mat-divider inset></mat-divider>
+                    
+                    <mat-card-footer class="p-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/temperature.png"/>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/hygrometer.png"/>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/scale.png"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold">{{colmeia.medicoes[0]?.temperatura}} °C</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold">{{colmeia.medicoes[0]?.umidade}} %</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold">{{colmeia.medicoes[0]?.peso}} Kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-footer>
+                </a>
+            </mat-card>
+
+            <mat-card class="bg-danger" *ngIf="(colmeia.medicoes.length > 0) && ((colmeia.medicoes[0].temperatura < 33 || colmeia.medicoes[0].temperatura > 36) || (colmeia.medicoes[0].umidade < 40 || colmeia.medicoes[0].umidade > 60))">
+                <mat-card-header>
+                    <div class="mat-card-header-text text-white">
+                        <div class="row">
+                            <div class="col">
+                                <h2 class="mb-0 fw-bold">{{colmeia.codigo}}</h2>
+                            </div>
+
+                            <div class="col p-0">
+                                <div class="text-end">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="updateColmeia(colmeia)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Editar</span>
+                                        </button>
+                                        <button mat-menu-item (click)="deleteColmeia(colmeia)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>Excluir</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-header>
+                <a [routerLink]="'/colmeias/' + colmeia.id" class="text-dark">
+                    <mat-card-content>
+                        <div class="text-center py-3">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2826/2826286.png" width="144" height="144"/>
+                        </div>
+                    </mat-card-content>
+                    
+                    <mat-divider inset class="bg-white"></mat-divider>
+                    
+                    <mat-card-footer class="p-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/temperature.png"/>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/hygrometer.png"/>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <img src="https://img.icons8.com/fluency/48/000000/scale.png"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold text-white">{{colmeia.medicoes[0]?.temperatura}} °C</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold text-white">{{colmeia.medicoes[0]?.umidade}} %</span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-center">
+                                    <span class="fw-bold text-white">{{colmeia.medicoes[0]?.peso}} Kg</span>
                                 </div>
                             </div>
                         </div>
