@@ -39,7 +39,6 @@ export class DialogColmeiaFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [id, Validators.nullValidator],
       codigo: [codigo, Validators.required],
-      telefone: [telefone, Validators.required],
       dataCadastro: [formatDate(dataCadastro, 'dd/MM/yyyy', 'en-US'), Validators.nullValidator]
     });
   }
@@ -49,7 +48,6 @@ export class DialogColmeiaFormComponent implements OnInit {
 
     colmeia.id = values.id;
     colmeia.codigo = values.codigo;
-    colmeia.telefone = values.telefone;
 
     return colmeia;
   }

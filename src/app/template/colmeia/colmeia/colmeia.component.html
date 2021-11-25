@@ -120,7 +120,7 @@
                 </a>
             </mat-card>
 
-            <mat-card *ngIf="(colmeia.medicoes.length > 0) && ((colmeia.medicoes[0].temperatura >= 33 && colmeia.medicoes[0].temperatura <= 36) || (colmeia.medicoes[0].umidade >= 40 && colmeia.medicoes[0].umidade <= 60))">
+            <mat-card *ngIf="(colmeia.medicoes.length > 0) && ((colmeia.medicoes[0].temperatura >= 33 && colmeia.medicoes[0].temperatura <= 36) && (colmeia.medicoes[0].umidade >= 40 && colmeia.medicoes[0].umidade <= 60))">
                 <mat-card-header>
                     <div class="mat-card-header-text">
                         <div class="row">
