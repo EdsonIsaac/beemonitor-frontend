@@ -55,7 +55,7 @@ export class ColmeiaComponent implements OnInit, OnDestroy {
 
   buildCards(colmeias: Array<Colmeia>) {
     this.colmeias = colmeias;
-    this.colmeias.sort((one, two) => (one > two ? -1 : 1));
+    this.colmeias.sort((one, two) => (one.codigo > two.codigo ? 1 : -1));
     this.colmeias.forEach(colmeia => colmeia.medicoes.sort((a, b) => (new Date(a.dataHoraCadastro).getTime() - new Date(b.dataHoraCadastro).getTime()) * -1));
   }
 
