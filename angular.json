@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "monitoramento-colmeia-frontend": {
+    "beemonitor-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/monitoramento-colmeia-frontend",
+            "outputPath": "dist/beemonitor-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "monitoramento-colmeia-frontend:build:production"
+              "browserTarget": "beemonitor-frontend:build:production"
             },
             "development": {
-              "browserTarget": "monitoramento-colmeia-frontend:build:development"
+              "browserTarget": "beemonitor-frontend:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "monitoramento-colmeia-frontend:build"
+            "browserTarget": "beemonitor-frontend:build"
           }
         },
         "test": {
@@ -113,5 +113,5 @@
       }
     }
   },
-  "defaultProject": "monitoramento-colmeia-frontend"
+  "defaultProject": "beemonitor-frontend"
 }
