@@ -4,10 +4,10 @@ const path = require('path');
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/monitoramento-colmeia-frontend'));
+app.use(express.static('./dist/beemonitor-frontend'));
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/monitoramento-colmeia-frontend/'}),
+    res.sendFile('index.html', {root: 'dist/beemonitor-frontend/'}),
 );
 
 // Start the app by listening on the default Heroku port
