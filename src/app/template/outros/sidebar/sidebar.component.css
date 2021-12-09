@@ -7,8 +7,8 @@ a, a:hover {
 }
 
 .vertical-nav {
-    min-width: 18rem;
-    width: 18rem;
+    min-width: 15rem;
+    width: 15rem;
     height: 100vh;
     position: fixed;
     top: 0;
