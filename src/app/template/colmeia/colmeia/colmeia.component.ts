@@ -83,7 +83,7 @@ export class ColmeiaComponent implements OnInit, OnDestroy {
   }
 
   findData() {
-    this.colmeiaService.findAllWithOneMedicao().subscribe(colmeias => {
+    this.colmeiaService.findAll(true, 1).subscribe(colmeias => {
       this.colmeiasAll = colmeias;
       this.buildCards(this.colmeiasAll);
     }, 

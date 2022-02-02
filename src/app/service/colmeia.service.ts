@@ -15,12 +15,8 @@ export class ColmeiaService {
     return this.http.delete<Colmeia>(environment.serverURL + '/colmeias/' + id);
   }
 
-  findAll (): Observable<Array<Colmeia>> {
-    return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias');
-  }
-
-  findAllWithOneMedicao(): Observable<Array<Colmeia>> {
-    return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias?oneMedicao=true');
+  findAll (collections: boolean, size: number): Observable<Array<Colmeia>> {
+    return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias?collections=' + collections + '&size=' + size);
   }
 
   find (id: number, collections?: boolean, date?: string | null) : Observable<Colmeia> {
