@@ -113,6 +113,9 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
               default: return item[property];
             }
           };
+
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
           
           this.buildGraph();
         });
