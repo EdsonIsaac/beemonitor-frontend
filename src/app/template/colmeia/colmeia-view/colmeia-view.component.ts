@@ -58,25 +58,25 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.findData();
-    this.id = setInterval(() => this.findData(), 30000);
+    
+    this.activatedRoute.params.subscribe(x => {
+
+      if (x && x.id) {
+        this.colmeiaService.find(x.id, false, null).subscribe(colmeia => {
+          this.colmeia = colmeia;
+        });
+      }
+    });
   }
   
   ngOnDestroy(): void {
     if (this.id) clearInterval(this.id);
   }
 
-  cleanFilter () {
-    this.inputSearchDate.value = '';
-    this.filterTable('');
-  }
-
-  buildGraph (filter: string) {
+  buildGraph () {
     let data = this.dataSource.data;
-
-    data = data.filter(x => new Date(x.dataHoraCadastro).toLocaleDateString().includes(filter));
     
-    if (data.length > 0 && filter !== '') {
+    if (data.length > 0) {
       data.sort((a, b) => {return new Date(a.dataHoraCadastro).getTime() - new Date(b.dataHoraCadastro).getTime();});
 
       this.lineChartDataTemperatura = [{data: data.map(x => x.temperatura), label: 'Temperatura'}];
@@ -93,18 +93,18 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  filterTable(value: any) {
+  dateSelected (value: any) {
     this.searchDate = value;
-    this.dataSource.filter = value;
-    this.buildGraph(value);
+    this.id = setInterval(() => this.findData(), 30000);
+    this.findData();
   }
 
   findData () {
     this.activatedRoute.params.subscribe(x => {
 
       if (x && x.id) {
-        this.colmeiaService.findById(x.id).subscribe(response => {
-          this.colmeia = response;
+        this.colmeiaService.find(x.id, true, this.searchDate).subscribe(colmeia => {
+          this.colmeia = colmeia;
           this.dataSource = new MatTableDataSource(this.colmeia.medicoes);
     
           this.dataSource.sortingDataAccessor = (item: any, property: any) => {
@@ -113,14 +113,8 @@ export class ColmeiaViewComponent implements OnInit, OnDestroy {
               default: return item[property];
             }
           };
-
-          this.dataSource.filterPredicate = (data: Medicao, filter: string) => new Date(data.dataHoraCadastro).toLocaleDateString().includes(filter);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
           
-          if (this.searchDate) {
-            this.filterTable(this.searchDate);
-          }
+          this.buildGraph();
         });
       }
     });

@@ -23,6 +23,10 @@ export class ColmeiaService {
     return this.http.get<Array<Colmeia>>(environment.serverURL + '/colmeias?oneMedicao=true');
   }
 
+  find (id: number, collections?: boolean, date?: string | null) : Observable<Colmeia> {
+    return this.http.get<Colmeia>(environment.serverURL + '/colmeias/' + id + '?collections=' + collections + '&date=' + date);
+  }
+
   findById (id: number): Observable<Colmeia> {
     return this.http.get<Colmeia>(environment.serverURL + '/colmeias/' + id);
   }
